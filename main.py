@@ -12,7 +12,7 @@ canvas_color = (input("Enter canvas color (white || black || red || green || blu
 canvas = Canvas(width=canvas_width, height=canvas_height, color=colors[canvas_color])
 
 while True:
-    shape_type = input("What do you like to draw? Enter 'quit' to exit application. ")
+    shape_type = input("What do you like to draw (rectangle or square)? Enter 'quit' to exit application. ")
     # Ask for rectangle data and create rectangle if user entered 'rectangle'
     if shape_type.lower() == 'rectangle':
         rec_x = int(input("Enter x_axis of the rectangle: "))
