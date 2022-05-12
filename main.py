@@ -40,7 +40,6 @@ while True:
         square = Square(x_axis=squ_x, y_axis=squ_y, side=squ_side, color=(red, green, blue))
         square.draw(canvas)
     if shape_type.lower() == "quit":
-        canvas.make("canvas.png")
         break
-
+canvas.make("canvas.png")
 
