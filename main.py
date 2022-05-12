@@ -1,55 +1,46 @@
-import numpy as np
-from PIL import Image
+from canvas import Canvas
+from shapes import Square, Rectangle
+
+# Get canvas width and height from user
+canvas_width = int(input("Enter canvas width: "))
+canvas_height = int(input("Enter canvas height: "))
+
+# Make a dictionary of color codes and prompt for color
+colors = {"white": (255, 255, 255), "black": (0, 0, 0), "red": (255, 0, 0), "green": (0, 255, 0), "blue": (0, 0, 255)}
+canvas_color = (input("Enter canvas color (white || black || red || green || blue )")).lower()
+
+canvas = Canvas(width=canvas_width, height=canvas_height, color=colors[canvas_color])
+
+while True:
+    shape_type = input("What do you like to draw? Enter 'quit' to exit application. ")
+    # Ask for rectangle data and create rectangle if user entered 'rectangle'
+    if shape_type.lower() == 'rectangle':
+        rec_x = int(input("Enter x_axis of the rectangle: "))
+        rec_y = int(input("Enter y_axis of the rectangle: "))
+        rec_width = int(input("Enter width of the rectangle: "))
+        rec_height = int(input("Enter height of the rectangle: "))
+        red = int(input("How much red should the rectangle have? "))
+        green = int(input("How much green? "))
+        blue = int(input("How much blue? "))
+
+        # Create the rectangle
+        rectangle = Rectangle(x_axis=rec_x, y_axis=rec_y, width=rec_width, height=rec_height, color=(red, green, blue))
+        rectangle.draw(canvas)
+
+    # Ask for square data and create square if user entered 'square'
+    if shape_type.lower() == 'square':
+        squ_x = int(input("Enter x_axis of the square: "))
+        squ_y = int(input("Enter y_axis of the square: "))
+        squ_side = int(input("Enter size of the sides: "))
+        red = int(input("How much red should the square have? "))
+        green = int(input("How much green? "))
+        blue = int(input("How much blue? "))
+
+        # Create the rectangle
+        square = Square(x_axis=squ_x, y_axis=squ_y, side=squ_side, color=(red, green, blue))
+        square.draw(canvas)
+    if shape_type.lower() == "quit":
+        canvas.make("canvas.png")
+        break
 
 
-class Canvas:
-
-    def __init__(self, width, height, color):
-        self.width = width
-        self.height = height
-        self.color = color
-
-        # Create a 3d numpy array of zeros
-        self.data = np.zeros((height, width, 3), dtype=np.uint8)
-        self.data[:] = self.color
-
-    def make(self, imagepath):
-        # self.imagepath = imagepath
-        self.img = Image.fromarray(self.data, 'RGB')
-        self.img.save(imagepath)
-        pass
-
-
-class Square:
-
-    def __init__(self, x_axis, y_axis, side, color):
-        self.x_axis = x_axis
-        self.y_axis = y_axis
-        self.side = side
-        self.color = color
-
-    def draw(self, canvas):
-        # self.canvas = canvas
-        canvas.data[self.x_axis:self.x_axis + self.side, self.y_axis:self.y_axis + self.side] = self.color
-
-
-class Rectangle:
-
-    def __init__(self, x_axis, y_axis, width, height, color):
-        self.x_axis = x_axis
-        self.y_axis = y_axis
-        self.width = width
-        self.height = height
-        self.color = color
-
-    def draw(self, canvas):
-        canvas.data[self.x_axis:self.x_axis + self.width, self.y_axis:self.y_axis + self.height] = self.color
-
-canvas = Canvas(width=200, height=200, color=(255, 255, 255))
-
-square = Square(x_axis=10, y_axis=50, side=50, color=(100, 200, 125))
-square.draw(canvas)
-
-rectangle = Rectangle(x_axis=30, y_axis=100, width=50, height=65, color=(255, 0, 0))
-rectangle.draw(canvas)
-canvas.make("canvas.png")
